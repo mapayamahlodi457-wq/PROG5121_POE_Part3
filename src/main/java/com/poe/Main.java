@@ -50,14 +50,21 @@ public class Main {
         Message[] sentMessages = new Message[100];
         int messageCount = 0;
         int totalMessages = 0;
-
+        StoredMessages store = new StoredMessages();
         boolean running = true;
         while (running) {
             System.out.println("\nMenu:");
             System.out.println("1) Send Messages");
             System.out.println("2) Show recently sent messages");
             System.out.println("3) Quit");
-            System.out.print("Choose: ");
+            System.out.println("4) Display sender and recipient of stored messages");
+            System.out.println("5) Display longest message");
+            System.out.println("6) Search by Message ID");
+            System.out.println("7) Search by Recipient");
+            System.out.println("8) Delete by Message Hash");
+            System.out.println("9) Display Report");
+            System.out.println("10) Read stored messages from JSON");
+            System.out.print("Enter choice: ");
             String choice = sc.nextLine();
 
             if (choice.equals("1")) {
@@ -120,17 +127,40 @@ public class Main {
                         sentMessages[messageCount] = msg;
                         messageCount++;
                         totalMessages++;
+                        store.addMessage(text, recipient, hash, messageId, username, "Sent");
                         System.out.println("Total messages sent: " + msg.returnTotalMessages(totalMessages));
                     } else if (sendChoice == 3) {
                         msg.storeMessage();
                         sentMessages[messageCount] = msg;
                         messageCount++;
+                        store.addMessage(text, recipient, hash, messageId, username, "Stored");
                     } else {
-                        // disregard - do nothing
+                        // disregard
+                        store.addMessage(text, recipient, hash, messageId, username, "Disregard");
                     }
                 }
             } else if (choice.equals("2")) {
                 System.out.println("Coming Soon.");
+            } else if (choice.equals("4")) {
+                System.out.println(store.displaySenderAndRecipient());
+            } else if (choice.equals("5")) {
+                System.out.println("Longest message: " + store.displayLongestMessage());
+            } else if (choice.equals("6")) {
+                System.out.print("Enter Message ID: ");
+                String searchId = sc.nextLine();
+                System.out.println(store.searchByMessageID(searchId));
+            } else if (choice.equals("7")) {
+                System.out.print("Enter Recipient: ");
+                String searchRec = sc.nextLine();
+                System.out.println(store.searchByRecipient(searchRec));
+            } else if (choice.equals("8")) {
+                System.out.print("Enter Message Hash: ");
+                String delHash = sc.nextLine();
+                System.out.println(store.deleteByHash(delHash));
+            } else if (choice.equals("9")) {
+                System.out.println(store.displayReport());
+            } else if (choice.equals("10")) {
+                System.out.println(store.readStoredMessagesFromJSON());
             } else if (choice.equals("3")) {
                 System.out.println("Quitting. Total messages sent: " + totalMessages);
                 running = false;
