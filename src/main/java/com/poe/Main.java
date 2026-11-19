@@ -1,6 +1,6 @@
 package com.poe;
 import java.util.Scanner;
-
+        // Main class - runs QuickChat app
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
