@@ -1,7 +1,7 @@
 package com.poe;
 import java.util.Random;
 import java.io.FileWriter;
-
+    // Message class - handles message ID, hash and JSON storage
 public class Message {
     private String messageId;
     private int messageNumber;
