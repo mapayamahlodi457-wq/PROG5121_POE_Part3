@@ -34,6 +34,7 @@ public class Main {
         String loginMessage = login.returnLoginStatus(isLoggedIn);
         System.out.println(loginMessage);
 
+        // Login before showing menu
         // If login failed, stop
         if (!isLoggedIn) {
             System.out.println("Login failed. Exiting.");
